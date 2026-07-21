@@ -87,8 +87,16 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    home: Home;
+    settings: Setting;
+    privacyPolicy: PrivacyPolicy;
+  };
+  globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
+    privacyPolicy: PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -314,6 +322,323 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  hero: {
+    title: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    ctaHero: {
+      title: string;
+      type?: ('internal' | 'external' | 'whatsapp') | null;
+      /**
+       * Para WhatsApp, informe apenas o número com DDD e código do país. Ex: 54999999999.
+       */
+      href: string;
+      newTab?: boolean | null;
+    };
+    gallery?:
+      | {
+          /**
+           * Sem tamanho padrao
+           */
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  about?: {
+    title?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Tamanho padrão: 630x400
+     */
+    image?: (string | null) | Media;
+  };
+  products?: {
+    title?: string | null;
+    /**
+     * Tamanho padrão: 519x539
+     */
+    image?: (string | null) | Media;
+    items?:
+      | {
+          /**
+           * Tamanho padrão: 35x35
+           */
+          icon?: (string | null) | Media;
+          /**
+           * Tamanho padrão: 90x143
+           */
+          productImage?: (string | null) | Media;
+          title?: string | null;
+          description?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          media?:
+            | (
+                | {
+                    /**
+                     * Tamanho padrão: 630x400
+                     */
+                    image: string | Media;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'image';
+                  }
+                | {
+                    /**
+                     * Envie um arquivo de vídeo pela biblioteca de mídia.
+                     */
+                    video: string | Media;
+                    /**
+                     * Imagem exibida antes do vídeo ser reproduzido.
+                     */
+                    poster?: (string | null) | Media;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'video';
+                  }
+                | {
+                    /**
+                     * Cole o link normal do YouTube. O embed será gerado automaticamente.
+                     */
+                    url: string;
+                    embedUrl?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'youtube';
+                  }
+              )[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  whereToFind?: {
+    title?: string | null;
+    items?:
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: string;
+  logo: string | Media;
+  blackLogo: string | Media;
+  phone: string;
+  whatsapp: string;
+  /**
+   * Este e-mail também será utilizado para contato.
+   */
+  email: string;
+  address: string;
+  openingHours: string;
+  facebook: string;
+  instagram: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacyPolicy".
+ */
+export interface PrivacyPolicy {
+  id: string;
+  title: string;
+  /**
+   * Texto exibido no topo da página e usado como descrição de SEO.
+   */
+  description: string;
+  lastUpdated: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        ctaHero?:
+          | T
+          | {
+              title?: T;
+              type?: T;
+              href?: T;
+              newTab?: T;
+            };
+        gallery?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  about?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  products?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        items?:
+          | T
+          | {
+              icon?: T;
+              productImage?: T;
+              title?: T;
+              description?: T;
+              media?:
+                | T
+                | {
+                    image?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    video?:
+                      | T
+                      | {
+                          video?: T;
+                          poster?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    youtube?:
+                      | T
+                      | {
+                          url?: T;
+                          embedUrl?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                  };
+              id?: T;
+            };
+      };
+  whereToFind?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  logo?: T;
+  blackLogo?: T;
+  phone?: T;
+  whatsapp?: T;
+  email?: T;
+  address?: T;
+  openingHours?: T;
+  facebook?: T;
+  instagram?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacyPolicy_select".
+ */
+export interface PrivacyPolicySelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

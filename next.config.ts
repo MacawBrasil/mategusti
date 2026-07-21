@@ -7,11 +7,15 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     localPatterns: [
-      {
-        pathname: '/api/media/file/**',
-      },
+      { pathname: '/api/media/file/**' },
+      { pathname: '/images/**' },
+      { pathname: '/icons/**' },
+      { pathname: '/*.png' },
     ],
   },
   webpack: (webpackConfig) => {
