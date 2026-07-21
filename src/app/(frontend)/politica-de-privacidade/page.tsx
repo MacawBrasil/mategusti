@@ -9,6 +9,8 @@ import { cache } from 'react'
 import { Footer } from '@/components/footer'
 import { RichText } from '@/components/richtext'
 
+export const dynamic = 'force-dynamic'
+
 function formatDate(value: string | null | undefined) {
   if (!value) {
     return null
