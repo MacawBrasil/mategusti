@@ -106,9 +106,9 @@ export function Products({ products }: ProductsProps) {
                 <path
                   d="M1 10C11.7754 10 11.7709 1 22.5463 1C33.3217 1 33.3172 10 44.0925 10C54.8679 10 54.8634 1 65.6388 1C76.4142 1 76.4097 10 87.1806 10C97.9515 10 97.9515 1 108.727 1C119.502 1 119.498 10 130.273 10C141.049 10 141.044 1 151.819 1C162.595 1 162.595 10 173.366 10C184.137 10 184.141 1 194.912 1"
                   stroke="#4C1514"
-                  stroke-width="2"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
                 />
               </svg>
             </div>
