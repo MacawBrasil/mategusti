@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   experimental: {
     globalNotFound: true,
+    cpus: 2,
+    memoryBasedWorkersCount: true,
+    staticGenerationMaxConcurrency: 2,
   },
   images: {
     localPatterns: [
