@@ -18,7 +18,7 @@ export default function GlobalNotFound() {
         <main className="grid min-h-screen place-items-center bg-background px-5 py-12 text-foreground sm:px-8">
           <section className="mx-auto flex w-full max-w-xl flex-col items-center text-center">
             <Link
-              className="mb-12 inline-flex items-center gap-3"
+              className="mb-12 inline-flex items-center gap-3 transition-opacity active:opacity-50"
               href="/"
               aria-label="Voltar para a Mategusti"
             >

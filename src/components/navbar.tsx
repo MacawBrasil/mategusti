@@ -30,7 +30,12 @@ export function Navbar({ logo }: NavbarProps) {
 
   return (
     <nav className="relative z-50 mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-12 xl:px-16">
-      <Link href="#inicio" aria-label="Ir para o início" onClick={() => setIsOpen(false)}>
+      <Link
+        href="#inicio"
+        aria-label="Ir para o início"
+        onClick={() => setIsOpen(false)}
+        className="transition-opacity active:opacity-50"
+      >
         {isPopulatedLogo(logo) ? (
           <Image
             alt={logo.alt}
@@ -47,7 +52,7 @@ export function Navbar({ logo }: NavbarProps) {
           <li key={item.href}>
             <Link
               href={item.href}
-              className="group relative [font-variant:small-caps] inline-flex flex-col items-center text-sm uppercase font-bold text-[#FCF7E8] transition-colors tracking-[3.2px]"
+              className="group relative [font-variant:small-caps] inline-flex flex-col items-center text-sm uppercase font-bold text-[#FCF7E8] transition-colors tracking-[3.2px] active:opacity-50"
             >
               <span className="absolute -top-2 h-[3px] w-[55px] opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="block h-full w-1/3 bg-[#21AA50]" />
@@ -73,7 +78,12 @@ export function Navbar({ logo }: NavbarProps) {
       {isOpen ? (
         <div className="fixed inset-0 z-50 animate-mobile-menu-in bg-[#531E17] px-6 py-6 lg:hidden">
           <div className="flex items-center justify-between">
-            <Link href="#inicio" aria-label="Ir para o início" onClick={() => setIsOpen(false)}>
+            <Link
+              href="#inicio"
+              aria-label="Ir para o início"
+              onClick={() => setIsOpen(false)}
+              className="transition-opacity active:opacity-50"
+            >
               {isPopulatedLogo(logo) ? (
                 <Image
                   alt={logo.alt}
@@ -101,7 +111,7 @@ export function Navbar({ logo }: NavbarProps) {
                 <Link
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="group relative inline-flex w-fit flex-col items-center pb-4 text-center text-xl font-bold uppercase tracking-[3.2px] text-[#FCF7E8] [font-variant:small-caps]"
+                  className="group relative inline-flex w-fit flex-col items-center pb-4 text-center text-xl font-bold uppercase tracking-[3.2px] text-[#FCF7E8] [font-variant:small-caps] transition-opacity active:opacity-50"
                 >
                   {item.label}
                   <span className="absolute bottom-0 h-[3px] w-[55px] opacity-100 transition-opacity">

@@ -79,7 +79,7 @@ export default async function PrivacyPolicyPage() {
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col gap-16">
             <Link
               href="/"
-              className="inline-flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] transition-colors hover:text-[#21AA50]"
+              className="inline-flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] transition-colors hover:text-[#21AA50] active:opacity-50"
             >
               <ArrowLeft className="size-4" />
               Início

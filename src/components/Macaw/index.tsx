@@ -8,6 +8,7 @@ export function Macaw(props: React.HTMLProps<HTMLAnchorElement>) {
       rel="noopener noreferrer"
       id="macaw"
       title="Macaw Marketing Vivo"
+      className="transition-opacity active:opacity-50"
       {...props}
     >
       <svg

@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useEffect, useRef } from 'react'
+import { useActionState, useEffect, useRef, useState } from 'react'
 import { useFormStatus } from 'react-dom'
 
 import type { ContactFormState } from '@/actions/contact'
@@ -13,6 +13,18 @@ type ContactFormProps = {
 const initialState: ContactFormState = {
   status: 'idle',
   message: '',
+}
+
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, '').slice(0, 11)
+
+  if (digits.length === 0) return ''
+  if (digits.length <= 2) return `(${digits}`
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`
+  if (digits.length <= 10) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`
+  }
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`
 }
 
 function SubmitButton() {
@@ -46,11 +58,13 @@ function SubmitButton() {
 
 export function ContactForm({ action }: ContactFormProps) {
   const [state, formAction] = useActionState(action, initialState)
+  const [phone, setPhone] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     if (state.status === 'success') {
       formRef.current?.reset()
+      setPhone('')
     }
   }, [state.status])
 
@@ -74,7 +88,8 @@ export function ContactForm({ action }: ContactFormProps) {
       <input
         type="email"
         name="email"
-        placeholder="E-mail"
+        placeholder="E-mail*"
+        required
         className="h-11 rounded-full border border-[#21AA50] bg-white px-5 text-sm font-semibold outline-none placeholder:text-[#4C1514]"
       />
       <input
@@ -82,12 +97,16 @@ export function ContactForm({ action }: ContactFormProps) {
         name="phone"
         placeholder="Telefone*"
         required
+        inputMode="tel"
+        value={phone}
+        onChange={(event) => setPhone(formatPhone(event.target.value))}
         className="h-11 rounded-full border border-[#21AA50] bg-white px-5 text-sm font-semibold outline-none placeholder:text-[#4C1514]"
       />
       <textarea
         name="message"
-        placeholder="Mensagem"
+        placeholder="Mensagem*"
         rows={5}
+        required
         className="resize-none rounded-3xl border border-[#21AA50] bg-white px-5 py-4 text-sm font-semibold outline-none placeholder:text-[#4C1514]"
       />
 

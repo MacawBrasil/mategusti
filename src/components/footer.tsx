@@ -35,9 +35,9 @@ export function Footer({ settings }: FooterProps) {
       <Image
         src="/casa-footer.svg"
         alt=""
-        width={1631}
+        width={1631}  
         height={768}
-        className="pointer-events-none absolute top-4 right-0 z-0 h-auto w-[1631px] -translate-x-0 opacity-60"
+        className="pointer-events-none absolute bottom-0 -right-10 z-0 h-auto w-[1631px] -translate-x-0 opacity-60"
       />
 
       <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-44 px-6 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-12 xl:px-16">
@@ -49,14 +49,17 @@ export function Footer({ settings }: FooterProps) {
             </div>
 
             <div className="mt-10 grid gap-4 text-sm">
-              <a href={`mailto:${settings.email}`} className="flex items-center gap-3">
+              <a
+                href={`mailto:${settings.email}`}
+                className="flex items-center gap-3 transition-opacity active:opacity-50"
+              >
                 <Mail className="size-4 shrink-0" />
                 <span>{settings.email}</span>
               </a>
 
               <div className="flex items-start gap-3">
                 <MapPin className="mt-0.5 size-4 shrink-0" />
-                <span>{settings.address}</span>
+                <span className="whitespace-pre-line">{settings.address}</span>
               </div>
 
               <div className="flex items-center gap-3">
@@ -67,7 +70,11 @@ export function Footer({ settings }: FooterProps) {
 
             <nav className="mt-10 grid gap-5 text-[0.65rem] font-extrabold uppercase tracking-[0.28em]">
               {menuItems.map((item) => (
-                <Link key={item.href} href={item.href} className="group relative w-fit pb-2">
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group relative w-fit pb-2 transition-opacity active:opacity-50"
+                >
                   {item.label}
                   <span className="absolute bottom-0 left-0 h-[3px] w-[55px] opacity-0 transition-opacity group-hover:opacity-100">
                     <span className="block h-full w-1/3 bg-[#21AA50]" />
@@ -96,6 +103,7 @@ export function Footer({ settings }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
+                className="transition-opacity active:opacity-50"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +131,7 @@ export function Footer({ settings }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
+                className="transition-opacity active:opacity-50"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +180,12 @@ export function Footer({ settings }: FooterProps) {
           <ContactForm action={sendContactEmailWithRecipient} />
 
           <div className="mx-auto mt-10 flex max-w-xl items-center justify-between text-xs">
-            <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+            <Link
+              href="/politica-de-privacidade"
+              className="transition-opacity active:opacity-50"
+            >
+              Política de Privacidade
+            </Link>
             <Macaw />
           </div>
         </div>

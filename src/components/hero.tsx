@@ -50,7 +50,7 @@ export function Hero({ hero, logo }: HeroProps) {
         alt=""
         width={1631}
         height={768}
-        className="pointer-events-none absolute left-1/2 top-10 z-0 h-auto w-[980px] -translate-x-1/2 opacity-50 sm:w-[1200px] lg:top-0 lg:w-[1631px] lg:opacity-60"
+        className="pointer-events-none absolute left-1/2 bottom-10 z-0 h-auto w-[980px] -translate-x-1/2 opacity-50 sm:w-[1200px] lg:bottom-0 lg:w-[1631px] lg:opacity-60"
       />
 
       <div className="relative z-10 mx-auto mt-20 flex max-w-5xl flex-col items-center gap-7 px-6 text-center sm:mt-28 lg:mt-36 lg:gap-8">
