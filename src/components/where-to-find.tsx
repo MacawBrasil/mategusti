@@ -37,11 +37,6 @@ export function WhereToFind({ whereToFind }: WhereToFindProps) {
     return null
   }
 
-  const repeatedItems = Array.from({ length: 15 }, (_, index) => ({
-    ...items[index % items.length],
-    repeatIndex: index,
-  }))
-
   return (
     <section id="onde-encontrar" className="relative bg-[#4C1514] py-24 text-[#FCF8E8]">
       <div className="mx-auto max-w-7xl px-6 lg:px-12 xl:px-16">
@@ -62,11 +57,8 @@ export function WhereToFind({ whereToFind }: WhereToFindProps) {
         </div>
 
         <div className="mx-auto mt-14 grid max-w-7xl grid-cols-2 items-center gap-x-8 gap-y-14 md:grid-cols-3 md:gap-16 lg:grid-cols-5 lg:gap-20">
-          {repeatedItems.map((item) => (
-            <div
-              key={`${item.id ?? item.image.id}-${item.repeatIndex}`}
-              className="flex items-center justify-center"
-            >
+          {items.map((item) => (
+            <div key={`${item.id ?? item.image.id}`} className="flex items-center justify-center">
               <Image
                 src={item.image.url}
                 alt={item.image.alt}
