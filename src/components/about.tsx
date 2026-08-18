@@ -1,27 +1,19 @@
 import Image from 'next/image'
 
-import type { Home, Media } from '@/payload-types'
+import type { Home } from '@/payload-types'
+import { MediaBlock, type MediaBlockData } from './media-block'
 import { RichText } from './richtext'
 
 type AboutProps = {
   about?: Home['about']
 }
 
-type AboutImage = NonNullable<Home['about']>['image']
-
-function isPopulatedMedia(media: AboutImage): media is Media & { url: string } {
-  return (
-    typeof media === 'object' &&
-    media !== null &&
-    typeof media.url === 'string' &&
-    media.url.length > 0
-  )
-}
-
 export function About({ about }: AboutProps) {
   if (!about) {
     return null
   }
+
+  const mediaBlock = about.media?.[0] as MediaBlockData | undefined
 
   return (
     <section id="sobre-nos" className="bg-[#FCF8E8] pb-24 pt-40 sm:pt-64">
@@ -49,15 +41,7 @@ export function About({ about }: AboutProps) {
           ) : null}
         </div>
 
-        {isPopulatedMedia(about.image) ? (
-          <Image
-            src={about.image.url}
-            alt={about.image.alt}
-            width={about.image.width ?? 630}
-            height={about.image.height ?? 400}
-            className="h-auto w-full"
-          />
-        ) : null}
+        <MediaBlock block={mediaBlock} className="h-auto w-full" fallbackTitle="Vídeo sobre nós" />
       </div>
     </section>
   )

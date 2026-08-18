@@ -382,9 +382,44 @@ export interface Home {
       [k: string]: unknown;
     } | null;
     /**
-     * Tamanho padrão: 630x400
+     * Escolha uma imagem ou um vídeo (arquivo ou link do YouTube). Tamanho padrão: 630x400
      */
-    image?: (string | null) | Media;
+    media?:
+      | (
+          | {
+              /**
+               * Tamanho padrão: 630x400
+               */
+              image: string | Media;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'image';
+            }
+          | {
+              /**
+               * Envie um arquivo de vídeo pela biblioteca de mídia.
+               */
+              video: string | Media;
+              /**
+               * Imagem exibida antes do vídeo ser reproduzido.
+               */
+              poster?: (string | null) | Media;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'video';
+            }
+          | {
+              /**
+               * Cole o link normal do YouTube. O embed será gerado automaticamente.
+               */
+              url: string;
+              embedUrl?: string | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'youtube';
+            }
+        )[]
+      | null;
   };
   products?: {
     title?: string | null;
@@ -550,7 +585,33 @@ export interface HomeSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
+        media?:
+          | T
+          | {
+              image?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              video?:
+                | T
+                | {
+                    video?: T;
+                    poster?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              youtube?:
+                | T
+                | {
+                    url?: T;
+                    embedUrl?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
       };
   products?:
     | T

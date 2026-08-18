@@ -132,24 +132,31 @@ export const home: GlobalConfig = {
   hooks: {
     beforeValidate: [
       ({ data }) => {
+        const withEmbedUrls = (media: unknown) =>
+          Array.isArray(media)
+            ? media.map((item: ProductMediaItem) => {
+                if (item?.blockType !== 'youtube' || typeof item.url !== 'string') {
+                  return item
+                }
+
+                return {
+                  ...item,
+                  embedUrl: getYouTubeEmbedURL(item.url),
+                }
+              })
+            : media
+
         const items = data?.products?.items
 
         if (Array.isArray(items)) {
           data.products.items = items.map((product) => ({
             ...product,
-            media: Array.isArray(product.media)
-              ? product.media.map((item: ProductMediaItem) => {
-                  if (item?.blockType !== 'youtube' || typeof item.url !== 'string') {
-                    return item
-                  }
-
-                  return {
-                    ...item,
-                    embedUrl: getYouTubeEmbedURL(item.url),
-                  }
-                })
-              : product.media,
+            media: withEmbedUrls(product.media),
           }))
+        }
+
+        if (data?.about) {
+          data.about.media = withEmbedUrls(data.about.media)
         }
 
         return data
@@ -204,12 +211,14 @@ export const home: GlobalConfig = {
               label: 'Descrição',
             },
             {
-              type: 'upload',
-              name: 'image',
-              label: 'Image',
-              relationTo: 'media',
+              type: 'blocks',
+              name: 'media',
+              label: 'Mídia',
+              blocks: mediaBlocks,
+              maxRows: 1,
               admin: {
-                description: 'Tamanho padrão: 630x400',
+                description: 'Escolha uma imagem ou um vídeo (arquivo ou link do YouTube). Tamanho padrão: 630x400',
+                initCollapsed: true,
               },
             },
           ],

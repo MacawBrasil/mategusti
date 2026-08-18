@@ -5,14 +5,13 @@ import { Accordion } from 'radix-ui'
 import { ChevronDown } from 'lucide-react'
 
 import type { Home, Media } from '@/payload-types'
+import { MediaBlock, type MediaBlockData } from './media-block'
 import { RichText } from './richtext'
 
 type ProductsProps = {
   products?: Home['products']
 }
 
-type ProductItem = NonNullable<NonNullable<Home['products']>['items']>[number]
-type ProductMediaBlock = NonNullable<ProductItem['media']>[number]
 type MediaUpload = string | Media | null | undefined
 
 function isPopulatedMedia(media: MediaUpload): media is Media & { url: string } {
@@ -22,54 +21,6 @@ function isPopulatedMedia(media: MediaUpload): media is Media & { url: string } 
     typeof media.url === 'string' &&
     media.url.length > 0
   )
-}
-
-function renderProductMedia(block: ProductMediaBlock | undefined) {
-  if (!block) {
-    return null
-  }
-
-  if (block.blockType === 'image' && isPopulatedMedia(block.image)) {
-    return (
-      <Image
-        src={block.image.url}
-        alt={block.image.alt}
-        width={block.image.width ?? 630}
-        height={block.image.height ?? 400}
-        className="h-auto w-full rounded-xl"
-      />
-    )
-  }
-
-  if (block.blockType === 'video' && isPopulatedMedia(block.video)) {
-    const poster = isPopulatedMedia(block.poster) ? block.poster.url : undefined
-
-    return (
-      <video
-        src={block.video.url}
-        poster={poster}
-        controls
-        className="aspect-video w-full rounded-xl object-cover"
-        aria-label={block.video.alt}
-      />
-    )
-  }
-
-  if (block.blockType === 'youtube' && (block.embedUrl || block.url)) {
-    return (
-      <div className="relative overflow-hidden rounded-xl">
-        <iframe
-          src={block.embedUrl ?? block.url}
-          title={block.blockName ?? 'Vídeo do produto'}
-          className="aspect-video w-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      </div>
-    )
-  }
-
-  return null
 }
 
 export function Products({ products }: ProductsProps) {
@@ -133,7 +84,7 @@ export function Products({ products }: ProductsProps) {
         >
           {items.map((item, index) => {
             const value = item.id ?? `product-${index}`
-            const mediaBlock = item.media?.[0]
+            const mediaBlock = item.media?.[0] as MediaBlockData | undefined
 
             return (
               <Accordion.Item
@@ -180,7 +131,7 @@ export function Products({ products }: ProductsProps) {
                       ) : null}
                     </div>
 
-                    {renderProductMedia(mediaBlock)}
+                    <MediaBlock block={mediaBlock} fallbackTitle="Vídeo do produto" />
                   </div>
                 </Accordion.Content>
               </Accordion.Item>
