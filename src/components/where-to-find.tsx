@@ -56,7 +56,7 @@ export function WhereToFind({ whereToFind }: WhereToFindProps) {
           </div>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-7xl grid-cols-2 items-center gap-x-8 gap-y-14 md:grid-cols-3 md:gap-16 lg:grid-cols-5 lg:gap-20">
+        <div className="mx-auto mt-14 grid max-w-7xl grid-cols-2 items-center gap-x-8 gap-y-14 md:gap-16 lg:grid-cols-4 lg:gap-20">
           {items.map((item) => (
             <div key={`${item.id ?? item.image.id}`} className="flex items-center justify-center">
               <Image
